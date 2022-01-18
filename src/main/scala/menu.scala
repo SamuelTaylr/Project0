@@ -39,8 +39,13 @@ class menu {
         val char = new characterDAO
         val charName = readLine("Enter character name to load character: ")
         val id = char.getCharId(charName)
-        char.displayCharacterInfo(id)
-        char.updateCharacterInfo(id)
+        if(id > 0) {
+          char.displayCharacterInfo(id)
+          char.updateCharacterInfo(id)
+        }
+        else {
+          println("Invalid character name entered")
+        }
       }
         return id
 

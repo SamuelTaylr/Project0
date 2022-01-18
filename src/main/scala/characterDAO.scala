@@ -73,9 +73,6 @@ class characterDAO {
     preparedStmt.setInt(1, charHealth)
     preparedStmt.execute()
     println(s"You have $charHealth health remaining")
-
-
-
   }
 
   def getCharHealth(charId: Int): Int = {
@@ -194,8 +191,6 @@ class characterDAO {
     else {
       factionId = 2
     }
-
-
     val rs = s"UPDATE  game_data.character SET char_name = ?, char_health = ?, char_class = ?, char_race = ?, faction_id = ? WHERE char_id = $charId"
 
     val preparedStmt: PreparedStatement = con.prepareStatement(rs)

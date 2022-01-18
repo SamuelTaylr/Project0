@@ -1,4 +1,5 @@
 import java.sql.PreparedStatement
+import scala.io.StdIn.readLine
 
 class characterDAO {
 
@@ -19,16 +20,19 @@ class characterDAO {
     }
   }
 
-  def makeNewChar(charName: String, health: Int, enemies_killed: Int = 0): Unit = {
+  def makeNewChar(charName: String, health: Int, charClass: String, charRace: String, charFaction: Int, distanceTraveled: Int = 0): Unit = {
 
     val dbCon = new dbConnector
     val con = dbCon.dbConnection()
-    val rs = s"INSERT INTO game_data.character (char_name, char_health, enemies_killed) VALUES (?, ?, ?)"
+    val rs = s"INSERT INTO game_data.character (char_name, char_health, distance_traveled, char_class, char_race, faction_id) VALUES (?, ?, ?, ?, ?, ?)"
 
     val preparedStmt: PreparedStatement = con.prepareStatement(rs)
     preparedStmt.setString(1,charName)
     preparedStmt.setInt(2, health)
-    preparedStmt.setInt(3, enemies_killed)
+    preparedStmt.setInt(3, distanceTraveled)
+    preparedStmt.setString(4,charClass)
+    preparedStmt.setString(5, charRace)
+    preparedStmt.setInt(6, charFaction)
     preparedStmt.execute()
   }
 
@@ -39,7 +43,7 @@ class characterDAO {
     var charId = 0
 
     val statement = con.createStatement
-    val rs = statement.executeQuery(s"SELECT char_id FROM game_data.character WHERE char_name = $name")
+    val rs = statement.executeQuery(s"SELECT char_id FROM game_data.character WHERE char_name = '$name'")
 
     while(rs.next) {
       charId = rs.getInt("char_id")
@@ -91,6 +95,61 @@ class characterDAO {
 
   }
 
+  def deleteCharacter(): Unit = {
+    val dbCon = new dbConnector
+    val con = dbCon.dbConnection()
 
+    println(
+      """
+        |**********************
+        |Enter a Character Name
+        |to Delete Them
+        |**********************
+        |""".stripMargin)
+
+    val charName = readLine()
+
+    val rs = s"DELETE FROM game_data.character WHERE char_name = ?"
+
+    val preparedStmt: PreparedStatement = con.prepareStatement(rs)
+    preparedStmt.setString(1,charName)
+    preparedStmt.execute()
+
+    println(s"$charName Deleted from Database Successfully")
+  }
+
+  def getAllCharacters(): Unit = {
+    val dbCon = new dbConnector
+    val con = dbCon.dbConnection()
+    val charName = scala.collection.mutable.ArrayBuffer("")
+
+    val statement = con.createStatement
+    val rs = statement.executeQuery(s"SELECT * FROM game_data.character")
+
+    while(rs.next) {
+      charName += rs.getString("char_name")
+    }
+
+    for(s <- charName) {
+      println(s)
+    }
+  }
+
+  def displayCharacterInfo(charId: Int) : Unit = {
+    val dbCon = new dbConnector
+    val con = dbCon.dbConnection()
+    val charName = scala.collection.mutable.ArrayBuffer("")
+
+    val statement = con.createStatement
+    val rs = statement.executeQuery(s"SELECT * FROM game_data.character")
+
+    while(rs.next) {
+      charName += rs.getString("char_name")
+    }
+
+    for(s <- charName) {
+      println(s)
+    }
+  }
 
 }

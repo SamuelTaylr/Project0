@@ -9,23 +9,56 @@ class menu {
     selection match{
 
       case 1 => {
-      val char = new characterDAO
-      println("Enter character id to load character")
-      id = readInt()
-      char.getCharName(id)
+        val newChar = readLine("Enter Name of New Character ")
+        val newClass = readLine("Enter Name of Character's Class ")
+        val newRace = readLine("Enter your Character's Race ")
+        println(
+          """
+            |Choose a Faction:
+            |Enter 1 for the Alliance
+            |Enter 2 for the Horde
+            |""".stripMargin)
+        val newFaction = readInt()
+        println("Enter Health ")
+        val newHealth = readInt()
+        val char = new characterDAO
+        char.makeNewChar(newChar,newHealth, newClass, newRace, newFaction)
+        Thread.sleep(250)
+        id = char.getCharId(newChar)
       }
         return id
 
       case 2 => {
-      val newChar = readLine("Enter Name of New Character ")
-      println("Enter Health ")
-      val newHealth = readInt()
-      val char = new characterDAO
-      char.makeNewChar(newChar,newHealth)
-      id = char.getCharId(newChar)
+        val char = new characterDAO
+        println("Enter character id to load character")
+        id = readInt()
+        char.getCharName(id)
       }
         return id
-  }
+
+      case 3 => {
+        val char = new characterDAO
+        val charName = readLine("Enter character name to load character")
+
+
+      }
+        return id
+
+      case 4 => {
+        val char = new characterDAO
+        char.deleteCharacter()
+        val testId = 0
+        return testId
+      }
+
+      case 5 => {
+        val char = new characterDAO
+        char.getAllCharacters()
+        val testingCode = 0
+        return testingCode
+      }
+    }
+
 
 
 }

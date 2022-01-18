@@ -1,15 +1,45 @@
-import scala.io.Source.DefaultBufSize.==
 import scala.io.StdIn.readInt
+import java.net.URL
+import javax.sound.sampled._
+import javax.sound.midi._
+import javax.sound.midi.ShortMessage._
 
 object main {
 
   def main(args: Array[String]): Unit = {
+
+
+    val rcvr = MidiSystem.getReceiver()
+
+    val msg = new ShortMessage
+    msg.setMessage(NOTE_ON, 0, 60, 93)
+
+    rcvr.send(msg, -1)
+
+
+    /*val url = new URL("http://mywebpages.comcast.net/jdeshon2/wave_files/jad0001a.wav")
+    val audioIn = AudioSystem.getAudioInputStream(url)
+    val clip = AudioSystem.getClip
+    clip.open(audioIn)
+    clip.start*/
+
     println(
       """
-        |Welcome to my Game
-        |Press 1 to Continue
-        |Press 2 to Start New Game
+        |******************************
+        |Welcome to SQL Dungeon
+        |******************************
+        |Press 1 to Start New Game
+        |******************************
+        |Press 2 to Continue
+        |******************************
+        |Press 3 to Edit Character
+        |******************************
+        |Press 4 to Delete Character
+        |******************************
+        |Press 5 to Show All Characters
+        |******************************
         |""".stripMargin)
+
     val selection = readInt()
     var id = 0
 
@@ -19,8 +49,11 @@ object main {
 
     println(
       """
+        |****************************
         |Ready to begin your journey?
-        |Enter 1 to begin or 2 to quit
+        |****************************
+        |Enter 1 to Begin or 2 to Quit
+        |****************************
         |""".stripMargin)
     val selectionTwo = readInt()
     menu.secondSelection(selectionTwo, id)

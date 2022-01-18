@@ -1,3 +1,6 @@
+import javax.sound.midi.{MidiSystem, ShortMessage}
+import javax.sound.midi.ShortMessage.NOTE_ON
+
 object encounter  {
 
 
@@ -10,6 +13,13 @@ object encounter  {
 
     encounterNumber match {
       case 0 => {
+
+        val rcvr = MidiSystem.getReceiver()
+
+        val msg = new ShortMessage
+        msg.setMessage(NOTE_ON, 0, 78, 93)
+
+        rcvr.send(msg, -1)
         println("You see a small, dimly lit chamber, apprehensive, you begin to walk inside.")
         Thread.sleep(5000)
         println("You find an abandoned couch and rest for a while...")
@@ -34,6 +44,11 @@ object encounter  {
 
 
       case 1 => {
+        val rcvr = MidiSystem.getReceiver()
+
+        val msg = new ShortMessage
+        msg.setMessage(NOTE_ON, 0, 78, 99)
+
         println("You come to a narrow hallway with only one exit, its too quiet here...")
         Thread.sleep(5000)
         println("A Skeleton Attacks!")
@@ -58,6 +73,10 @@ object encounter  {
       }
 
       case 2 => {
+        val rcvr = MidiSystem.getReceiver()
+        val msg = new ShortMessage
+        msg.setMessage(NOTE_ON, 0, 45, 93)
+
         println("You enter a brightly lit room with a strange altar in the center...")
         Thread.sleep(5000)
         print("Slowly, you approach the altar")

@@ -1,5 +1,5 @@
 import java.sql.PreparedStatement
-import scala.io.StdIn.readLine
+import scala.io.StdIn.{readInt, readLine}
 
 class characterDAO {
 
@@ -138,18 +138,76 @@ class characterDAO {
   def displayCharacterInfo(charId: Int) : Unit = {
     val dbCon = new dbConnector
     val con = dbCon.dbConnection()
-    val charName = scala.collection.mutable.ArrayBuffer("")
+    var charName = ""
+    var charHealth = 0
+    var charClass = ""
+    var charRace = ""
+    var factionId = 0
+    var convertedFaction = ""
+
 
     val statement = con.createStatement
-    val rs = statement.executeQuery(s"SELECT * FROM game_data.character")
+    val rs = statement.executeQuery(s"SELECT * FROM game_data.character WHERE char_id = $charId")
 
     while(rs.next) {
-      charName += rs.getString("char_name")
+      charName = rs.getString("char_name")
+      charHealth = rs.getInt("char_health")
+      charClass = rs.getString("char_class")
+      charRace = rs.getString("char_race")
+      factionId = rs.getInt("faction_id")
     }
 
-    for(s <- charName) {
-      println(s)
+    if(factionId == 1) {
+      convertedFaction = "Alliance"
     }
+    else{
+      convertedFaction = "Horde"
+    }
+    println("Name: " + charName)
+    println("Health: " + charHealth)
+    println("Class: " + charClass)
+    println("Race: " + charRace)
+    println("Faction: " + convertedFaction)
+  }
+
+  def updateCharacterInfo(charId : Int) : Unit = {
+
+    val dbCon = new dbConnector
+    val con = dbCon.dbConnection()
+    var charName = ""
+    var charHealth = 0
+    var charClass = ""
+    var charRace = ""
+    var factionId = 0
+    var convertedFaction = ""
+
+    charName = readLine("Update Character's Name: ")
+    println("Update Character's Health: ")
+    charHealth = readInt()
+    charClass = readLine("Update Character's Class: ")
+    charRace = readLine("Update Character's Race: ")
+    convertedFaction = readLine("Update Character's Faction: ")
+
+    if(convertedFaction == "Alliance") {
+      factionId = 1
+    }
+    else {
+      factionId = 2
+    }
+
+
+    val rs = s"UPDATE  game_data.character SET char_name = ?, char_health = ?, char_class = ?, char_race = ?, faction_id = ? WHERE char_id = $charId"
+
+    val preparedStmt: PreparedStatement = con.prepareStatement(rs)
+    preparedStmt.setString(1,charName)
+    preparedStmt.setInt(2, charHealth)
+    preparedStmt.setString(3, charClass)
+    preparedStmt.setString(4, charRace)
+    preparedStmt.setInt(5, factionId)
+    preparedStmt.execute()
+
+    println(s"$charName Was Updated Successfully!")
+
   }
 
 }

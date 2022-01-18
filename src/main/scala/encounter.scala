@@ -18,8 +18,8 @@ object encounter  {
 
         val msg = new ShortMessage
         msg.setMessage(NOTE_ON, 0, 78, 93)
-
         rcvr.send(msg, -1)
+
         println("You see a small, dimly lit chamber, apprehensive, you begin to walk inside.")
         Thread.sleep(5000)
         println("You find an abandoned couch and rest for a while...")
@@ -48,6 +48,7 @@ object encounter  {
 
         val msg = new ShortMessage
         msg.setMessage(NOTE_ON, 0, 78, 99)
+        rcvr.send(msg, -1)
 
         println("You come to a narrow hallway with only one exit, its too quiet here...")
         Thread.sleep(5000)
@@ -76,6 +77,7 @@ object encounter  {
         val rcvr = MidiSystem.getReceiver()
         val msg = new ShortMessage
         msg.setMessage(NOTE_ON, 0, 45, 93)
+        rcvr.send(msg, -1)
 
         println("You enter a brightly lit room with a strange altar in the center...")
         Thread.sleep(5000)
@@ -95,6 +97,11 @@ object encounter  {
       }
 
       case 3 =>
+        val rcvr = MidiSystem.getReceiver()
+        val msg = new ShortMessage
+        msg.setMessage(NOTE_ON, 0, 45, 93)
+        rcvr.send(msg, -1)
+
         println("You see a strange building in the distance...")
         Thread.sleep(5000)
         println(
@@ -115,6 +122,11 @@ object encounter  {
         println("No point in delaying, you begin to walk towards it.")
 
       case 4 =>
+        val rcvr = MidiSystem.getReceiver()
+        val msg = new ShortMessage
+        msg.setMessage(NOTE_ON, 0, 99, 99)
+        rcvr.send(msg, -1)
+
         println("You enter a strange, dirty chamber with moss growing everywhere...")
         Thread.sleep(5000)
         println("You hear a scratching noise coming from behind you...")

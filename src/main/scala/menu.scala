@@ -9,9 +9,9 @@ class menu {
     selection match{
 
       case 1 => {
-        val newChar = readLine("Enter Name of New Character ")
-        val newClass = readLine("Enter Name of Character's Class ")
-        val newRace = readLine("Enter your Character's Race ")
+        val newChar = readLine("Enter Name of New Character: ")
+        val newClass = readLine("Enter Name of Character's Class: ")
+        val newRace = readLine("Enter your Character's Race: ")
         println(
           """
             |Choose a Faction:
@@ -19,18 +19,17 @@ class menu {
             |Enter 2 for the Horde
             |""".stripMargin)
         val newFaction = readInt()
-        println("Enter Health ")
+        println("Enter Health: ")
         val newHealth = readInt()
         val char = new characterDAO
         char.makeNewChar(newChar,newHealth, newClass, newRace, newFaction)
-        Thread.sleep(250)
         id = char.getCharId(newChar)
       }
         return id
 
       case 2 => {
         val char = new characterDAO
-        println("Enter character id to load character")
+        println("Enter character id to load character: ")
         id = readInt()
         char.getCharName(id)
       }
@@ -38,9 +37,10 @@ class menu {
 
       case 3 => {
         val char = new characterDAO
-        val charName = readLine("Enter character name to load character")
-
-
+        val charName = readLine("Enter character name to load character: ")
+        val id = char.getCharId(charName)
+        char.displayCharacterInfo(id)
+        char.updateCharacterInfo(id)
       }
         return id
 
@@ -75,7 +75,7 @@ class menu {
         println(
           s"""
             |There's no shame in quitting while you're ahead
-            |Enter your character id $charId to restart later
+            |Enter your character id: $charId to restart later
             |""".stripMargin)
         System.exit(1)
       }

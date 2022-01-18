@@ -4,16 +4,13 @@ class dbConnector {
 
   def dbConnection(): Connection = {
     val MySQLURL = "jdbc:mysql://localhost:3306/grocery_store"
-    val databseUserName = "root"
+    val databaseUserName = "root"
     val databasePassword = "root"
     val driver = "com.mysql.cj.jdbc.Driver"
-    //val driver = "com.mysql.jdbc.Driver"
-    val con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword)
-
+    val con = DriverManager.getConnection(MySQLURL, databaseUserName, databasePassword)
     try {
       Class.forName(driver)
-      val con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword)
-      if (con != null) System.out.println("Database connection is successful !!!!")
+      val con = DriverManager.getConnection(MySQLURL, databaseUserName, databasePassword)
 
     } catch {
       case e: Exception =>

@@ -65,7 +65,7 @@ class characterDAO {
       charHealth = rs.getInt("char_health")
     }
 
-    charHealth += changeHealth
+    charHealth -= changeHealth
     val rsTwo = s"UPDATE game_data.character SET char_health = (?), distance_traveled = distance_traveled + 1 WHERE char_id = $charId"
 
     val preparedStmt: PreparedStatement = con.prepareStatement(rsTwo)

@@ -39,20 +39,23 @@ object encounter  {
             |[]                               []
             |""".stripMargin)
 
-        char.updateCharHealth(charId, 1)
+        char.updateCharHealth(charId, -1)
       }
 
 
       case 1 => {
         val rcvr = MidiSystem.getReceiver()
-
         val msg = new ShortMessage
         msg.setMessage(NOTE_ON, 0, 78, 99)
         rcvr.send(msg, -1)
 
         println("You come to a narrow hallway with only one exit, its too quiet here...")
         Thread.sleep(5000)
-        println("A Skeleton Attacks!")
+
+        val enemy = new enemyDAO
+        val enemyAttack = enemy.enemyAttack()
+
+        /*println("A Skeleton Attacks!")
         println(
           """
             |      .-.
@@ -69,8 +72,8 @@ object encounter  {
             |     || ||
             |     || ||
             |    ==' '==
-            |""".stripMargin)
-        char.updateCharHealth(charId, -1)
+            |""".stripMargin)*/
+        char.updateCharHealth(charId, enemyAttack)
       }
 
       case 2 => {
@@ -93,7 +96,7 @@ object encounter  {
             |        |   |
             |        |___|
             |""".stripMargin)
-        char.updateCharHealth(charId, 3)
+        char.updateCharHealth(charId, -3)
       }
 
       case 3 =>
@@ -132,7 +135,10 @@ object encounter  {
         println("You hear a scratching noise coming from behind you...")
         Thread.sleep(5000)
 
-        println("A small pink rabbit leaps at you out of nowhere!")
+        val enemy = new enemyDAO
+        val enemyAttack = enemy.enemyAttack()
+
+        /*println("A small pink rabbit leaps at you out of nowhere!")
         println(
           """
             |                ((`\
@@ -141,8 +147,8 @@ object encounter  {
             |        /    \   '. __.'
             |       _|    /_  \ \_\_
             |      {_\______\-'\__\_\
-            |""".stripMargin)
-        char.updateCharHealth(charId, -3)
+            |""".stripMargin)*/
+        char.updateCharHealth(charId, enemyAttack)
 
 
     }

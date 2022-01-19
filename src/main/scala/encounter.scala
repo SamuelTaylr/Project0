@@ -40,6 +40,7 @@ object encounter  {
             |""".stripMargin)
 
         char.updateCharHealth(charId, -1)
+        char.checkCharGold(charId)
       }
 
 
@@ -49,31 +50,18 @@ object encounter  {
         msg.setMessage(NOTE_ON, 0, 78, 99)
         rcvr.send(msg, -1)
 
+        val r = scala.util.Random
+        val encounterNumber = r.nextInt(55)
+
         println("You come to a narrow hallway with only one exit, its too quiet here...")
         Thread.sleep(5000)
 
         val enemy = new enemyDAO
-        val enemyAttack = enemy.enemyAttack()
+        val enemyAttack = enemy.enemyAttack(encounterNumber)
+        val enemyGold = enemy.enemyGold(encounterNumber)
 
-        /*println("A Skeleton Attacks!")
-        println(
-          """
-            |      .-.
-            |     (o.o)
-            |      |=|
-            |     __|__
-            |   //.=|=.\\
-            |  // .=|=. \\
-            |  \\ .=|=. //
-            |   \\(_=_)//
-            |    (:| |:)
-            |     || ||
-            |     () ()
-            |     || ||
-            |     || ||
-            |    ==' '==
-            |""".stripMargin)*/
-        char.updateCharHealth(charId, enemyAttack)
+        char.updateCharHealth(charId, enemyAttack, enemyGold)
+        char.checkCharGold(charId)
       }
 
       case 2 => {
@@ -97,6 +85,7 @@ object encounter  {
             |        |___|
             |""".stripMargin)
         char.updateCharHealth(charId, -3)
+        char.checkCharGold(charId)
       }
 
       case 3 =>
@@ -123,6 +112,7 @@ object encounter  {
             |""".stripMargin)
 
         println("No point in delaying, you begin to walk towards it.")
+        char.checkCharGold(charId)
 
       case 4 =>
         val rcvr = MidiSystem.getReceiver()
@@ -130,25 +120,20 @@ object encounter  {
         msg.setMessage(NOTE_ON, 0, 99, 99)
         rcvr.send(msg, -1)
 
+        val r = scala.util.Random
+        val encounterNumber = r.nextInt(55)
+
         println("You enter a strange, dirty chamber with moss growing everywhere...")
         Thread.sleep(5000)
         println("You hear a scratching noise coming from behind you...")
         Thread.sleep(5000)
 
         val enemy = new enemyDAO
-        val enemyAttack = enemy.enemyAttack()
+        val enemyAttack = enemy.enemyAttack(encounterNumber)
+        val enemyGold = enemy.enemyGold(encounterNumber)
 
-        /*println("A small pink rabbit leaps at you out of nowhere!")
-        println(
-          """
-            |                ((`\
-            |            ___ \\ '--._
-            |         .'`   `'    o  )
-            |        /    \   '. __.'
-            |       _|    /_  \ \_\_
-            |      {_\______\-'\__\_\
-            |""".stripMargin)*/
-        char.updateCharHealth(charId, enemyAttack)
+        char.updateCharHealth(charId, enemyAttack, enemyGold)
+        char.checkCharGold(charId)
 
 
     }

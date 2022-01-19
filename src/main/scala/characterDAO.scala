@@ -53,7 +53,7 @@ class characterDAO {
 
   }
 
-  def updateCharHealth(charId: Int, changeHealth: Int) : Unit = {
+  def updateCharHealth(charId: Int, changeHealth: Int, goldObtained: Int= 0) : Unit = {
     val dbCon = new dbConnector
     val con = dbCon.dbConnection()
     var charHealth = 0
@@ -66,13 +66,13 @@ class characterDAO {
     }
 
     charHealth -= changeHealth
-    val rsTwo = s"UPDATE game_data.character SET char_health = (?), distance_traveled = distance_traveled + 1 WHERE char_id = $charId"
+    val rsTwo = s"UPDATE game_data.character SET char_health = (?), distance_traveled = distance_traveled + 1, char_gold = char_gold + $goldObtained WHERE char_id = $charId"
 
     val preparedStmt: PreparedStatement = con.prepareStatement(rsTwo)
 
     preparedStmt.setInt(1, charHealth)
     preparedStmt.execute()
-    println(s"You have $charHealth health remaining")
+    println(s"You have $charHealth health remaining.")
   }
 
   def getCharHealth(charId: Int): Int = {
@@ -203,6 +203,31 @@ class characterDAO {
 
     println(s"$charName Was Updated Successfully!")
 
+  }
+
+  def checkCharGold(id: Int): Unit = {
+    val dbCon = new dbConnector
+    val con = dbCon.dbConnection()
+    var charGold = 0
+
+    val statement = con.createStatement
+    val rs = statement.executeQuery(s"SELECT char_gold FROM game_data.character WHERE char_id = $id")
+
+    while(rs.next) {
+      charGold = rs.getInt("char_gold")
+    }
+    if(charGold >100) {
+      println(
+        """
+          |********************************
+          |Congratulations! You're rich, now
+          |you can give up this dangerous
+          |life of adventuring and retire!
+          |********************************
+          |""".stripMargin)
+      sys.exit(1)
+
+    }
   }
 
 }

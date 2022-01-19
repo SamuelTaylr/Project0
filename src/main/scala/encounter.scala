@@ -58,6 +58,9 @@ object encounter  {
 
         val enemy = new enemyDAO
         val enemyAttack = enemy.enemyAttack(encounterNumber)
+        Thread.sleep(3000)
+        println("You summon your courage and fight...")
+        Thread.sleep(3000)
         val enemyGold = enemy.enemyGold(encounterNumber)
 
         char.updateCharHealth(charId, enemyAttack, enemyGold)
@@ -130,6 +133,9 @@ object encounter  {
 
         val enemy = new enemyDAO
         val enemyAttack = enemy.enemyAttack(encounterNumber)
+        Thread.sleep(3000)
+        println("You summon your courage and fight...")
+        Thread.sleep(3000)
         val enemyGold = enemy.enemyGold(encounterNumber)
 
         char.updateCharHealth(charId, enemyAttack, enemyGold)

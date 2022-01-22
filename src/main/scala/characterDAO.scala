@@ -13,7 +13,6 @@ class characterDAO {
     var name = scala.collection.mutable.ArrayBuffer("")
     while(rs.next) {
       name += rs.getString("char_name")
-
     }
     for(x <- name) {
       println(x)
@@ -72,6 +71,7 @@ class characterDAO {
 
     preparedStmt.setInt(1, charHealth)
     preparedStmt.execute()
+    println("")
     println(s"You have $charHealth health remaining.")
   }
 
@@ -216,6 +216,7 @@ class characterDAO {
     while(rs.next) {
       charGold = rs.getInt("char_gold")
     }
+    println(s"You currently have $charGold gold. ")
     if(charGold >100) {
       println(
         """

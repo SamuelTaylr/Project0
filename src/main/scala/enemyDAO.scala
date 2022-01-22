@@ -5,7 +5,7 @@ class enemyDAO {
 
   def enemyAttack(enemyId: Int): Int ={
     val r = scala.util.Random
-    val encounterNumber = r.nextInt(55)
+    val encounterNumber = r.nextInt(115)
     var enemyName = ""
     var enemyAttack = 0
 
@@ -20,7 +20,7 @@ class enemyDAO {
       enemyAttack = rs.getInt("enemy_attack")
     }
 
-    println(s"You're Attacked by an $enemyName.")
+    println(s"You're Attacked by a $enemyName.")
     return enemyAttack
 
   }

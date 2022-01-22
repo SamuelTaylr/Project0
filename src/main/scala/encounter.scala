@@ -21,7 +21,7 @@ object encounter  {
         rcvr.send(msg, -1)
 
         println("You see a small, dimly lit chamber, apprehensive, you begin to walk inside.")
-        Thread.sleep(5000)
+        Thread.sleep(0)
         println("You find an abandoned couch and rest for a while...")
 
         println(
@@ -39,7 +39,7 @@ object encounter  {
             |[]                               []
             |""".stripMargin)
 
-        char.updateCharHealth(charId, -1)
+        char.updateCharHealth(charId, -3)
         char.checkCharGold(charId)
       }
 
@@ -51,16 +51,16 @@ object encounter  {
         rcvr.send(msg, -1)
 
         val r = scala.util.Random
-        val encounterNumber = r.nextInt(55)
+        val encounterNumber = r.nextInt(115)
 
         println("You come to a narrow hallway with only one exit, its too quiet here...")
-        Thread.sleep(5000)
+        Thread.sleep(0)
 
         val enemy = new enemyDAO
         val enemyAttack = enemy.enemyAttack(encounterNumber)
-        Thread.sleep(3000)
+        Thread.sleep(0)
         println("You summon your courage and fight...")
-        Thread.sleep(3000)
+        Thread.sleep(0)
         val enemyGold = enemy.enemyGold(encounterNumber)
 
         char.updateCharHealth(charId, enemyAttack, enemyGold)
@@ -73,21 +73,21 @@ object encounter  {
         msg.setMessage(NOTE_ON, 0, 45, 93)
         rcvr.send(msg, -1)
 
+        val r = scala.util.Random
+        val encounterNumber = r.nextInt(10)
+        val treasure = new treasureDAO
+
         println("You enter a brightly lit room with a strange altar in the center...")
-        Thread.sleep(5000)
+        Thread.sleep(0)
         print("Slowly, you approach the altar")
-        Thread.sleep(5000)
-        println("You find a health potion!")
-        println(
-          """
-            |         mmm
-            |         )-(
-            |        (   )
-            |        |   |
-            |        |   |
-            |        |___|
-            |""".stripMargin)
-        char.updateCharHealth(charId, -3)
+        Thread.sleep(0)
+        val treasureTuple = treasure.treasureFind(encounterNumber)
+        val healthChange = treasureTuple._1
+        val goldChange = treasureTuple._2
+        println(healthChange)
+
+
+        char.updateCharHealth(charId, -healthChange)
         char.checkCharGold(charId)
       }
 
@@ -98,7 +98,7 @@ object encounter  {
         rcvr.send(msg, -1)
 
         println("You see a strange building in the distance...")
-        Thread.sleep(5000)
+        Thread.sleep(0)
         println(
           """
             |
@@ -124,18 +124,18 @@ object encounter  {
         rcvr.send(msg, -1)
 
         val r = scala.util.Random
-        val encounterNumber = r.nextInt(55)
+        val encounterNumber = r.nextInt(115)
 
         println("You enter a strange, dirty chamber with moss growing everywhere...")
-        Thread.sleep(5000)
+        Thread.sleep(0)
         println("You hear a scratching noise coming from behind you...")
-        Thread.sleep(5000)
+        Thread.sleep(0)
 
         val enemy = new enemyDAO
         val enemyAttack = enemy.enemyAttack(encounterNumber)
-        Thread.sleep(3000)
+        Thread.sleep(0)
         println("You summon your courage and fight...")
-        Thread.sleep(3000)
+        Thread.sleep(0)
         val enemyGold = enemy.enemyGold(encounterNumber)
 
         char.updateCharHealth(charId, enemyAttack, enemyGold)

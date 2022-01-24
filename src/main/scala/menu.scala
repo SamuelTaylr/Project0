@@ -62,6 +62,15 @@ class menu {
         val testingCode = 0
         return testingCode
       }
+
+      case 6 => {
+        val char = new characterDAO
+        println("Enter character id to display character sheet: ")
+        id = readInt()
+        char.displayCharacterInfo(id)
+        val testingCode = 0
+        return testingCode
+      }
     }
 
 

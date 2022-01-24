@@ -87,7 +87,7 @@ object encounter  {
         println(healthChange)
 
 
-        char.updateCharHealth(charId, -healthChange)
+        char.updateCharHealth(charId, -healthChange, goldChange)
         char.checkCharGold(charId)
       }
 

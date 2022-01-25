@@ -179,6 +179,48 @@ class characterDAO {
     Thread.sleep(2000)
   }
 
+  def displayCharacterInfoName(charName: String) : Unit = {
+    val dbCon = new dbConnector
+    val con = dbCon.dbConnection()
+    var charId = 0
+    var charName = ""
+    var charHealth = 0
+    var charClass = ""
+    var charRace = ""
+    var factionId = 0
+    var convertedFaction = ""
+    var charGold = 0
+
+
+    val statement = con.createStatement
+    val rs = statement.executeQuery(s"SELECT * FROM game_data.character WHERE char_name = $charName")
+
+    while(rs.next) {
+      charId = rs.getInt("char_id")
+      charName = rs.getString("char_name")
+      charHealth = rs.getInt("char_health")
+      charClass = rs.getString("char_class")
+      charRace = rs.getString("char_race")
+      factionId = rs.getInt("faction_id")
+      charGold = rs.getInt("char_gold")
+    }
+
+    if(factionId == 1) {
+      convertedFaction = "Alliance"
+    }
+    else{
+      convertedFaction = "Horde"
+    }
+    println("Name: " + charName)
+    println("Health: " + charHealth)
+    println("Class: " + charClass)
+    println("Race: " + charRace)
+    println("Faction: " + convertedFaction)
+    println("Gold: " + charGold)
+    println("Character Id: " + charId)
+    Thread.sleep(2000)
+  }
+
   def updateCharacterInfo(charId : Int) : Unit = {
 
     val dbCon = new dbConnector

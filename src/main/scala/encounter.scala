@@ -7,7 +7,7 @@ object encounter  {
   def encounterMethod(charId: Int): Unit = {
     val char = new characterDAO
     val r = scala.util.Random
-    val encounterNumber = r.nextInt(5)
+    val encounterNumber = r.nextInt(6)
     Thread.sleep(1500)
 
 
@@ -19,11 +19,9 @@ object encounter  {
         val msg = new ShortMessage
         msg.setMessage(NOTE_ON, 0, 78, 93)
         rcvr.send(msg, -1)
-
         println("You see a small, dimly lit chamber, apprehensive, you begin to walk inside.")
         Thread.sleep(0)
         println("You find an abandoned couch and rest for a while...")
-
         println(
           """
             |  .--------------.--------------.
@@ -38,7 +36,6 @@ object encounter  {
             ||_________________________________|
             |[]                               []
             |""".stripMargin)
-
         char.updateCharHealth(charId, -3)
         char.checkCharGold(charId)
       }
@@ -99,22 +96,18 @@ object encounter  {
 
         println("You see a strange building in the distance...")
         Thread.sleep(0)
-        println(
-          """
-            |
-            |             +
-            |             A
-            |          __/_\__
-            |         /\-'o'-/\
-            |        _||:<_>:||_
-            |       /\_/=====\_/\
-            |      _|:_:_[I]_:_:|_
-            |   _/::::::::::::::::\_
-            | _/::::::::::::::::::::\_
-            |/::::::::::::::::::::::::\
-            |""".stripMargin)
-
         println("No point in delaying, you begin to walk towards it.")
+        Thread.sleep(0)
+
+        val enemy = new enemyDAO
+        val enemyAttack = enemy.enemyAttack(encounterNumber)
+        Thread.sleep(0)
+        println("You summon your courage and fight...")
+        Thread.sleep(0)
+        val enemyGold = enemy.enemyGold(encounterNumber)
+
+        char.updateCharHealth(charId, enemyAttack, enemyGold)
+
         char.checkCharGold(charId)
 
       case 4 =>
@@ -142,7 +135,34 @@ object encounter  {
         char.checkCharGold(charId)
 
 
+      case 5 =>
+        val rcvr = MidiSystem.getReceiver()
+        val msg = new ShortMessage
+        msg.setMessage(NOTE_ON, 0, 99, 99)
+        rcvr.send(msg, -1)
+
+        val r = scala.util.Random
+        val encounterNumber = r.nextInt(115)
+
+        println("You see someone peeking from around a corner...")
+        Thread.sleep(0)
+        println("You slowly walk towards them, unsure of who it could be...")
+        Thread.sleep(0)
+
+        val enemy = new enemyDAO
+        val enemyAttack = enemy.enemyAttack(encounterNumber)
+        Thread.sleep(0)
+        println("You summon your courage and fight...")
+        Thread.sleep(0)
+        val enemyGold = enemy.enemyGold(encounterNumber)
+
+        char.updateCharHealth(charId, enemyAttack, enemyGold)
+        char.checkCharGold(charId)
     }
+
+
+
+
   }
 
 

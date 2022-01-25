@@ -20,7 +20,7 @@ class enemyDAO {
       enemyAttack = rs.getInt("enemy_attack")
     }
 
-    println(s"You're Attacked by a $enemyName.")
+    println(s"You're Attacked by a $enemyName!")
     return enemyAttack
 
   }

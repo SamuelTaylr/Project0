@@ -52,15 +52,13 @@ class menu {
       case 4 => {
         val char = new characterDAO
         char.deleteCharacter()
-        val testId = 0
-        return testId
+        0
       }
 
       case 5 => {
         val char = new characterDAO
         char.getAllCharacters()
-        val testingCode = 0
-        return testingCode
+        0
       }
 
       case 6 => {
@@ -68,8 +66,27 @@ class menu {
         println("Enter character id to display character sheet: ")
         id = readInt()
         char.displayCharacterInfo(id)
-        val testingCode = 0
-        return testingCode
+        return id
+      }
+
+      case 7 => {
+        val newChar = readLine("Enter Name of New Character: ")
+        val newClass = readLine("Enter Name of Character's Class: ")
+        val newRace = readLine("Enter your Character's Race: ")
+        println(
+          """
+            |Choose a Faction:
+            |Enter 1 for the Alliance
+            |Enter 2 for the Horde
+            |""".stripMargin)
+        val newFaction = readInt()
+        println("Enter Health: ")
+        val newHealth = readInt()
+        val char = new characterDAO
+        char.makeNewChar(newChar,newHealth, newClass, newRace, newFaction)
+        val charId = char.getCharId(newChar)
+        println(s"Character Id is : $charId")
+        0
       }
     }
 

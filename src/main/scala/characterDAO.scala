@@ -119,17 +119,24 @@ class characterDAO {
     val dbCon = new dbConnector
     val con = dbCon.dbConnection()
     val charName = scala.collection.mutable.ArrayBuffer("")
+    val charId = scala.collection.mutable.ArrayBuffer(0)
 
     val statement = con.createStatement
     val rs = statement.executeQuery(s"SELECT * FROM game_data.character")
 
     while(rs.next) {
+      charId += rs.getInt("char_id")
       charName += rs.getString("char_name")
     }
+    val printList = charId zip charName
 
-    for(s <- charName) {
-      println(s)
+    for(s <- printList) {
+      if(s._1 > 0){
+        println(s)
+        Thread.sleep(20)
+      }
     }
+    Thread.sleep(2000)
   }
 
   def displayCharacterInfo(charId: Int) : Unit = {
@@ -141,6 +148,7 @@ class characterDAO {
     var charRace = ""
     var factionId = 0
     var convertedFaction = ""
+    var charGold = 0
 
 
     val statement = con.createStatement
@@ -152,6 +160,7 @@ class characterDAO {
       charClass = rs.getString("char_class")
       charRace = rs.getString("char_race")
       factionId = rs.getInt("faction_id")
+      charGold = rs.getInt("char_gold")
     }
 
     if(factionId == 1) {
@@ -165,6 +174,9 @@ class characterDAO {
     println("Class: " + charClass)
     println("Race: " + charRace)
     println("Faction: " + convertedFaction)
+    println("Gold: " + charGold)
+    println("Character Id: " + charId)
+    Thread.sleep(2000)
   }
 
   def updateCharacterInfo(charId : Int) : Unit = {

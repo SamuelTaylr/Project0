@@ -33,6 +33,10 @@ object main {
           |******************************
           |Press 5 to Show All Characters
           |******************************
+          |Press 6 to View a Character Sheet
+          |******************************
+          |Press 7 to Create a New Character
+          |******************************
           |""".stripMargin)
 
       val selection = readInt()

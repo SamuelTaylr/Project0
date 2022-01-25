@@ -67,7 +67,7 @@ class characterDAO {
     charHealth -= changeHealth
     val rsTwo = s"UPDATE game_data.character SET char_health = (?), distance_traveled = distance_traveled + 1, char_gold = char_gold + $goldObtained WHERE char_id = $charId"
 
-    val preparedStmt: PreparedStatement = con.prepareStatement(rsTwo)
+    val preparedStmt = con.prepareStatement(rsTwo)
 
     preparedStmt.setInt(1, charHealth)
     preparedStmt.execute()
@@ -108,7 +108,7 @@ class characterDAO {
 
     val rs = s"DELETE FROM game_data.character WHERE char_name = ?"
 
-    val preparedStmt: PreparedStatement = con.prepareStatement(rs)
+    val preparedStmt = con.prepareStatement(rs)
     preparedStmt.setString(1,charName)
     preparedStmt.execute()
 
@@ -247,7 +247,7 @@ class characterDAO {
     }
     val rs = s"UPDATE  game_data.character SET char_name = ?, char_health = ?, char_class = ?, char_race = ?, faction_id = ? WHERE char_id = $charId"
 
-    val preparedStmt: PreparedStatement = con.prepareStatement(rs)
+    val preparedStmt = con.prepareStatement(rs)
     preparedStmt.setString(1,charName)
     preparedStmt.setInt(2, charHealth)
     preparedStmt.setString(3, charClass)

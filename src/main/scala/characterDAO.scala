@@ -10,13 +10,13 @@ class characterDAO {
 
     val statement = con.createStatement
     val rs = statement.executeQuery(s"SELECT * FROM game_data.character WHERE char_id = $id")
-    var name = scala.collection.mutable.ArrayBuffer("")
+    var name = ""
     while(rs.next) {
       name += rs.getString("char_name")
     }
-    for(x <- name) {
-      println(x)
-    }
+    println("***************************")
+    println("****" + name + ("*" * (23-name.length)) )
+    println("***************************")
   }
 
   def makeNewChar(charName: String, health: Int, charClass: String, charRace: String, charFaction: Int, distanceTraveled: Int = 0): Unit = {
